@@ -47,6 +47,15 @@ public class GameSimulator {
         while(game.getGameStatus() == GameStatus.IN_PROGRESS) {
             gameController.makeMove(game);
             gameController.printBoard(game.getBoard());
+
+            if(game.getGameStatus() == GameStatus.IN_PROGRESS) {
+                System.out.println("do you want to undo the current move? (Y/N)");
+                char response = scanner.next().charAt(0);
+                if (response == 'Y') {
+                    gameController.undoMove(game);
+                    gameController.printBoard(game.getBoard());
+                }
+            }
         }
 
         if(game.getGameStatus() == GameStatus.WON) {

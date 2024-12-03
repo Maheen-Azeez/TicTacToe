@@ -24,4 +24,7 @@ public class GameController {
     public Player getWinner(Game game) {
         return game.getPlayers().get(game.getCurrentPlayerIdx());
     }
+    public void undoMove(Game game) {
+        game.undoMove();
+    }
 }

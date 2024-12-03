@@ -43,4 +43,11 @@ public class Board {
         }
         return cell;
     }
+
+    public void undoMove(List<Move> moves) {
+        Move lastMove = moves.get(moves.size()-1);
+        Cell lastOccupiedCell = lastMove.getCell();
+        lastOccupiedCell.setPlayer(null);
+        moves.remove(lastMove);
+    }
 }

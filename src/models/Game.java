@@ -6,7 +6,6 @@ import exceptions.CellOccupiedException;
 import exceptions.InvalidBotCountException;
 import exceptions.InvalidPlayerCountException;
 import strategies.bot_level_strategies.BotPlayingStrategy;
-import strategies.winning_strategies.OrderOneStrategy;
 import strategies.winning_strategies.PlayerWinningStrategy;
 
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ public class Game {
     private List<Player> players;
     private int currentPlayerIdx;
     private GameStatus gameStatus;
-    private List<Moves> moves;
+    private List<Move> moves;
     private PlayerWinningStrategy playerWinningStrategy;
     private BotPlayingStrategy botPlayingStrategy;
 
@@ -74,7 +73,7 @@ public class Game {
         Pair<Integer,Integer> cordinates = currentPlayer.makeMove();
         try {
             Cell currentCell = this.board.setPlayer(cordinates.x,cordinates.y,currentPlayer);
-            moves.add(new Moves(currentPlayer,currentCell));
+            moves.add(new Move(currentPlayer,currentCell));
             if(playerWinningStrategy.checkIfWon(currentCell)){
                 this.gameStatus = GameStatus.WON;
                 return;
@@ -88,6 +87,10 @@ public class Game {
             System.out.println(e.getMessage());
             makeMove();
         }
+    }
 
+    public void undoMove(){
+        this.board.undoMove(this.moves);
+        this.currentPlayerIdx--;
     }
 }
